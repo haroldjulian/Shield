@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="aplicacioncontroles.shield.RegistroActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@color/colorPrimary"
+        android:theme="@style/Theme.AppCompat"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize">
+
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txtNombres"
+            android:hint="Nombres y Apellidos"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/txtDni"
+            android:hint="DNI"
+            android:inputType="number"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/txtTelefono"
+            android:layout_marginTop="10dp"
+            android:inputType="number"
+            android:hint="Telefono"
+            android:maxLength="8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/txtEmail"
+            android:inputType="textEmailAddress"
+
+            android:hint="Correo Electronico"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/txtUsuario"
+            android:hint="Usuario"
+            android:layout_marginTop="10dp"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/txtClave"
+            android:hint="Clave"
+            android:layout_marginTop="10dp"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <CheckBox
+            android:layout_marginTop="20dp"
+            android:text="Acepto compartir mi ubicacion con la aplicacion shield"
+            android:id="@+id/chkTerminos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="Registrarme"
+            android:layout_marginTop="20dp"
+            android:onClick="registrarme"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

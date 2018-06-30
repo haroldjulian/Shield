@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1b1b1b</color>
+    <color name="colorPrimaryDark">#121212</color>  <!-- cambio aqui y tengo otro efecto era 303F9F -->
+    <color name="colorAccent">#29b991</color>
+</resources>
