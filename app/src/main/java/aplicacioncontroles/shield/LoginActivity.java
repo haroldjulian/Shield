@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.klinker.android.link_builder.Link;
 import com.klinker.android.link_builder.LinkBuilder;
 
+import aplicacioncontroles.shield.dal.DalUsuario;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -24,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);  //para usar esta funcion que reemplaza al findbyId se debe incluir en el gradle la implementacion de ButterKnife
         initLink();
-
+        new DalUsuario().probarServicio();
     }
 
     private void initLink() {
