@@ -1,5 +1,6 @@
 package aplicacioncontroles.shield;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,10 +19,14 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.util.List;
 
+import aplicacioncontroles.shield.be.BeUsuario;
+import aplicacioncontroles.shield.callbacks.RegistroUsuarioCallback;
+import aplicacioncontroles.shield.dal.DalUsuario;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RegistroActivity extends AppCompatActivity implements Validator.ValidationListener {
+public class RegistroActivity extends AppCompatActivity implements
+        Validator.ValidationListener, RegistroUsuarioCallback {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -34,9 +39,7 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
     @BindView(R.id.txtClave)
     EditText txtClave;
 
-    @NotEmpty(message = "Campo Obligatorio")
-    @BindView(R.id.txtUsuario)
-    EditText txtusuario;
+
 
     @NotEmpty(message = "Campo Obligatorio")
     @Length(min = 8, max=8, message = "DNI debe tener 8 digitos")
@@ -57,6 +60,7 @@ public class RegistroActivity extends AppCompatActivity implements Validator.Val
     CheckBox chkTerminos;
 
 Validator validator;
+    ProgressDialog dialog;
 
 
 
@@ -76,6 +80,13 @@ Validator validator;
 
         validator.setValidationListener(this);
 
+
+        dialog = new ProgressDialog(this);
+        dialog.setCanceledOnTouchOutside(false);  //no se cierra si presionas fuera del dialog
+        dialog.setMessage("Registrando..");;
+        dialog.setIndeterminate(true);
+
+
     }
 
     @Override
@@ -88,8 +99,17 @@ Validator validator;
 
     @Override
     public void onValidationSucceeded() {
+        dialog.show();
         //aqui hacemos la peticion http para guardar los datos del usuario !!!!
-        Toast.makeText(this,"Todo ok......",Toast.LENGTH_LONG).show();
+      //  Toast.makeText(this,"Todo ok......",Toast.LENGTH_LONG).show();
+        BeUsuario usuario = new BeUsuario();
+        usuario.nombres = txtNombres.getText().toString();
+        usuario.dni = Integer.parseInt(txtDni.getText().toString());
+        usuario.telefono = Integer.parseInt((txtTelefono.getText().toString()));
+        usuario.email = txtEmail.getText().toString();
+        usuario.password = txtClave.getText().toString();
+
+        new DalUsuario().registrarUsuario(usuario,this);
 
     }
 
@@ -111,5 +131,19 @@ Validator validator;
 
     public void registrarme(View v){   //esto va actuar cada vez que presiones el boton REGISTRAME en el diseñador
         validator.validate();
+    }
+
+    @Override
+    public void onRegistroSucess() {
+        dialog.dismiss();
+        Toast.makeText(this,"usuario registrado exitosamente",Toast.LENGTH_LONG).show();
+        finish();
+
+    }
+
+    @Override
+    public void onRegistroError(String mensaje) {
+    dialog.dismiss();
+        Toast.makeText(this,mensaje,Toast.LENGTH_LONG).show();
     }
 }

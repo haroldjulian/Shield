@@ -47,6 +47,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_gravity="right"
                 android:text="Ingresar"
+                android:onClick="iniciarSesion"
                 android:backgroundTint="@color/colorAccent"
                 android:textColor="@android:color/white"
                 android:layout_width="120dp"

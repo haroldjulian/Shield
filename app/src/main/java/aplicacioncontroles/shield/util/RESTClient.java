@@ -9,7 +9,7 @@ import com.loopj.android.http.RequestParams;
  */
 
 public class RESTClient {
-    private static final String BASE_URL = "https://reqres.in/api/";
+    private static final String BASE_URL = "http://10.0.2.2:8000/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 

@@ -6,14 +6,26 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import aplicacioncontroles.shield.util.Functions;
+
 public class Splashscreen extends AppCompatActivity {
 
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Intent iLogin = new Intent(Splashscreen.this,LoginActivity.class);
-            startActivity(iLogin);
+
+            if ( Functions.obtenerUsuario(Splashscreen.this) != null){
+                Intent iLogin = new Intent(Splashscreen.this,MainActivity.class);
+                startActivity(iLogin);
+                finish();
+            }else{
+                Intent iLogin = new Intent(Splashscreen.this,LoginActivity.class);
+                startActivity(iLogin);
+                finish();
+            }
+
+
         }
     };
 

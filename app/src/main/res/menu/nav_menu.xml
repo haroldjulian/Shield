@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:id="@+id/group_nav"
+    android:checkableBehavior="single">
+    <item
+        android:id="@+id/actionInicio"
+        android:checkable="true"
+        android:icon="@drawable/ic_home"
+        android:title="Inicio">
+
+    </item>
+    <item
+        android:id="@+id/actionContactos"
+        android:icon="@drawable/ic_contactos"
+        android:title="Contactos">
+
+    </item>
+    <item
+        android:id="@+id/actionNoticias"
+        android:icon="@drawable/ic_noticias"
+        android:title="Noticias">
+
+    </item>
+    <item
+        android:id="@+id/actionAgentes"
+        android:icon="@drawable/ic_agentes"
+        android:title="agentes">
+
+    </item>
+    <item
+        android:id="@+id/actionCerrarSesion"
+        android:icon="@drawable/ic_cerrar_sesion"
+        android:title="Cerrar Sesion">
+
+    </item>
+
+</group>
+
+</menu>

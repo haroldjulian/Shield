@@ -3,21 +3,23 @@ package aplicacioncontroles.shield.be;
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
 
-import java.util.ArrayList;
-
 /**
- * Created by user on 30/06/2018.
+ * Created by user on 07/07/2018.
  */
+
 @JsonObject
-public class Personas {
+public class BeUsuario {
     @JsonField
-    public int page;
+    public  int id;
     @JsonField
-    public int per_page;
+    public String nombres;
     @JsonField
-    public int total;
+    public int dni;
     @JsonField
-    public  int total_page;
+    public int telefono;
     @JsonField
-    public ArrayList<Persona> data;
+    public String email;
+    @JsonField
+    public String password;
+
 }
