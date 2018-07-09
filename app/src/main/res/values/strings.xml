@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Shield</string>
+    <string name="Cerrar">Cerrar</string>
+    <string name="Abrir">Abrir</string>
 </resources>

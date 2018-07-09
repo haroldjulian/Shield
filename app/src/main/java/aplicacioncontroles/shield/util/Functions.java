@@ -37,4 +37,9 @@ public class Functions {
         }
         return usuario;
     }
+    public static void eliminarUsuario(Context c){
+        SharedPreferences preferences = c.getSharedPreferences("usuario_logeado",Context.MODE_PRIVATE);
+        preferences.edit().clear().commit();
+    }
+
 }
