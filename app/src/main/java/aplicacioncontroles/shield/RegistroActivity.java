@@ -136,7 +136,8 @@ Validator validator;
     @Override
     public void onRegistroSucess() {
         dialog.dismiss();
-        Toast.makeText(this,"usuario registrado exitosamente",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"usuario registrado exitosamente",Toast.LENGTH_LONG).show();
+        setResult(RESULT_OK);
         finish();
 
     }

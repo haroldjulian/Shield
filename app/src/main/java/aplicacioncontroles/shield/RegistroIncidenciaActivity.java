@@ -1,6 +1,7 @@
 package aplicacioncontroles.shield;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.LocationSource;
 import com.karumi.dexter.Dexter;
@@ -23,10 +25,13 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import aplicacioncontroles.shield.callbacks.RegistroIncidenciaCallback;
+import aplicacioncontroles.shield.dal.DalIncidencia;
+import aplicacioncontroles.shield.util.Functions;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RegistroIncidenciaActivity extends AppCompatActivity implements LocationListener {
+public class RegistroIncidenciaActivity extends AppCompatActivity implements LocationListener,RegistroIncidenciaCallback {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -39,6 +44,10 @@ public class RegistroIncidenciaActivity extends AppCompatActivity implements Loc
 
 
     LocationManager manager;
+
+    Location ubicacionActual;
+    ProgressDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +73,11 @@ public class RegistroIncidenciaActivity extends AppCompatActivity implements Loc
                     @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
                 }).check();
 
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Registrando....");
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setIndeterminate(true);
+
     }
 
     private void  pedirUbicacion(){
@@ -87,11 +101,32 @@ public class RegistroIncidenciaActivity extends AppCompatActivity implements Loc
 
     public void registrarIncidencia (View v){
 
+        String descripcion = txtDescripcion.getText().toString();
+        if (!descripcion.isEmpty())
+        {
+
+            if (ubicacionActual != null){
+                dialog.show();
+                //proceso dcon registro
+                String tipo = spinnerTipo.getSelectedItem().toString();
+                double latitud = ubicacionActual.getLatitude();
+                double longitud = ubicacionActual.getLongitude();
+                int idUsuario = Functions.obtenerUsuario(this).id;
+
+                new DalIncidencia().registrarIncidencia(tipo,descripcion,latitud,longitud,idUsuario,this);
+
+            }else{
+                Toast.makeText(this, "No se pudo determinar la ubicacion actual", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
+        this.ubicacionActual = location;
         Log.d("ubicacion",location.getLatitude()+","+location.getLongitude());
     }
 
@@ -108,5 +143,18 @@ public class RegistroIncidenciaActivity extends AppCompatActivity implements Loc
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    @Override
+    public void onRegistroSucess() {
+        dialog.dismiss();
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    @Override
+    public void onRegistroError(String mensaje) {
+        dialog.dismiss();
+        Toast.makeText(this,mensaje,Toast.LENGTH_SHORT).show();
     }
 }
